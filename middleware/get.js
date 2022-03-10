@@ -1,5 +1,5 @@
 const User = require("../models/Users");
-const Admin = require("../models/Admins");
+// const Admin = require("../models/Admins");
 const Product = require("../models/Products");
 
 async function getUser(req, res, next) {
@@ -15,22 +15,6 @@ async function getUser(req, res, next) {
   }
 
   res.user = user;
-  next();
-}
-
-async function getAdmin(req, res, next) {
-  let admin;
-  try {
-    admin = await Admin.findById(req.params.id);
-
-    if (admin == null) {
-      return res.status(404).json({ message: "Cannot find admin" });
-    }
-  } catch (error) {
-    return res.status(500).json({ message: error.message });
-  }
-
-  res.admin = admin;
   next();
 }
 
@@ -50,4 +34,4 @@ async function getProduct(req, res, next) {
   next();
 }
 
-module.exports = { getUser, getProduct, getAdmin };
+module.exports = { getUser, getProduct };

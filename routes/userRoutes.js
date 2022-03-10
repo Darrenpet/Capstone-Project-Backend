@@ -78,35 +78,35 @@ app.post("/", async (req, res) => {
   }
 });
 
-// // UPDATE a user
-// app.put("/:id", getUser, async (req, res) => {
-//   const { name, email, phone_number, password } = req.body;
-//   if (name) res.user.name = name;
-//   if (email) res.user.email = email;
-//   if (phone_number) res.user.phone_number = phone_number;
-//   if (password) {
-//     const salt = await bcrypt.genSalt();
-//     const hashedPassword = await bcrypt.hash(password, salt);
-//     res.user.password = hashedPassword;
-//   }
+// UPDATE a user
+app.put("/:id", getUser, async (req, res) => {
+  const { name, email, phone_number, password } = req.body;
+  if (name) res.user.name = name;
+  if (email) res.user.email = email;
+  if (phone_number) res.user.phone_number = phone_number;
+  if (password) {
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(password, salt);
+    res.user.password = hashedPassword;
+  }
 
-//   try {
-//     const updatedUser = await res.user.save();
-//     res.status(201).send(updatedUser);
-//   } catch (error) {
-//     res.status(400).json({ message: error.message });
-//   }
-// });
+  try {
+    const updatedUser = await res.user.save();
+    res.status(201).send(updatedUser);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
 
 // DELETE a user
-// app.delete("/:id", getUser, async (req, res) => {
-//   try {
-//     await res.user.remove();
-//     res.json({ message: "Deleted user" });
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-// });
+app.delete("/:id", getUser, async (req, res) => {
+  try {
+    await res.user.remove();
+    res.json({ message: "Deleted user" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 
 // GET USER CART
 app.get("/:id/cart", [authenticateToken, getUser], (req, res) => {

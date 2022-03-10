@@ -5,7 +5,6 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 
 const userRoutes = require("./routes/userRoutes");
-const adminRoutes = require("./routes/adminRoutes");
 const productRoutes = require("./routes/productRoutes");
 const contactRoutes = require("./routes/contactRoutes");
 
@@ -31,7 +30,6 @@ app.get("/", (req, res) => {
 });
 
 app.use("/users", userRoutes);
-app.use("/admins", adminRoutes);
 app.use("/products", productRoutes);
 app.use("/contact", contactRoutes);
 
