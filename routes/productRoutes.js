@@ -24,27 +24,17 @@ app.get("/:id", [authenticateToken, getProduct], (req, res) => {
 
 // CREATE a product
 app.post("/", authenticateToken, async (req, res) => {
-  const { title, category, description, img, price } = req.body;
+  const { title, category, description, img_front, img_back, price } = req.body;
 
-  let product;
-
-  img
-    ? (product = new Product({
-        title,
-        category,
-        description,
-        img,
-        price,
-        created_by: req.user._id,
-      }))
-    : (product = new Product({
-        title,
-        category,
-        description,
-        img,
-        price,
-        created_by: req.user._id,
-      }));
+  let product = new Product({
+    title,
+    category,
+    description,
+    img_front,
+    img_back,
+    price,
+    created_by: req.user._id,
+  });
 
   try {
     const newProduct = await product.save();
@@ -60,11 +50,12 @@ app.put("/:id", [authenticateToken, getProduct], async (req, res) => {
     res.status(400).json({
       message: "You do not have the permission to update this product",
     });
-  const { title, category, description, img, price } = req.body;
+  const { title, category, description, img_front, img_back, price } = req.body;
   if (title) res.product.title = title;
   if (category) res.product.category = category;
   if (description) res.product.description = description;
-  if (img) res.product.img = img;
+  if (img_front) res.product.img_front = img_front;
+  if (img_back) res.product.img_back = img_back;
   if (price) res.product.price = price;
 
   try {

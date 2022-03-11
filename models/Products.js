@@ -16,9 +16,14 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  img: {
+  img_front: {
     type: String,
-    required: false,
+    required: true,
+    default: "https://picsum.photos/1920",
+  },
+  img_back: {
+    type: String,
+    required: true,
     default: "https://picsum.photos/1920",
   },
   price: {
