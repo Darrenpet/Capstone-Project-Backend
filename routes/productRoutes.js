@@ -8,7 +8,7 @@ const authenticateToken = require("../middleware/auth");
 const app = express.Router();
 
 // GET all products
-app.get("/", authenticateToken, async (req, res) => {
+app.get("/", async (req, res) => {
   try {
     const products = await Product.find();
     res.status(201).send(products);
@@ -18,7 +18,7 @@ app.get("/", authenticateToken, async (req, res) => {
 });
 
 // GET one product
-app.get("/:id", [authenticateToken, getProduct], (req, res) => {
+app.get("/:id", getProduct, (req, res) => {
   res.send(res.product);
 });
 
