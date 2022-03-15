@@ -6,6 +6,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { getUser, getProduct } = require("../middleware/get");
 const authenticateToken = require("../middleware/auth");
+const authController = require("../controller/authController");
 
 const app = express.Router();
 
@@ -46,6 +47,8 @@ app.patch("/", async (req, res) => {
       .json({ message: "Email and password combination do not match" });
   }
 });
+
+app.get("/logout", authController.logout_get);
 
 // REGISTER a user
 app.post("/", async (req, res) => {
