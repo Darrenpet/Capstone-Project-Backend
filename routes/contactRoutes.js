@@ -6,7 +6,7 @@ require("dotenv").config();
 app.get("/", (req, res) => res.send({ msg: "Send contact using POST" }));
 
 app.post("/", (req, res) => {
-  const { name, email, message } = req.body;
+  const { name, email, textarea } = req.body;
 
   console.log(process.env.EMAIL, process.env.PASS);
   const transporter = nodemailer.createTransport({
@@ -23,10 +23,10 @@ app.post("/", (req, res) => {
   const mailOptions = {
     from: `${email}`,
     to: `${process.env.EMAIL}`,
-    subject: "This is from portfolio",
+    subject: "This is from eCommerce Website",
     text: `${name} has messaged you, saying:
     
-    ${message}`,
+    ${textarea}`,
   };
 
   transporter.sendMail(mailOptions, function (error, info) {

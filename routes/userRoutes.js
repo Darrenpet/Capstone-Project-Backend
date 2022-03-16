@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { getUser, getProduct } = require("../middleware/get");
 const authenticateToken = require("../middleware/auth");
-const authController = require("../controller/authController");
+// const authController = require("../controller/authController");
 
 const app = express.Router();
 
@@ -48,7 +48,7 @@ app.patch("/", async (req, res) => {
   }
 });
 
-app.get("/logout", authController.logout_get);
+// app.get("/logout", authController.logout_get);
 
 // REGISTER a user
 app.post("/", async (req, res) => {
