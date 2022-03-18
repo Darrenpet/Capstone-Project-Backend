@@ -85,3 +85,13 @@ Authorization: eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI2MjE4ZDMwZjY0NjI2N2M4ZTI4ZjkyZjMi
 Content-Type: application/json
 
 ###
+
+POST http://localhost:5000/contact
+Content-Type: application/json
+
+{
+    "name": "Darren",
+    "email": "darren@gmail.com",
+    "textarea": "Hi this is a test"
+}
+

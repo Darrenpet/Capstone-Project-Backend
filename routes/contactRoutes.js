@@ -26,7 +26,9 @@ app.post("/", (req, res) => {
     subject: "This is from eCommerce Website",
     text: `${name} has messaged you, saying:
     
-    ${textarea}`,
+    ${textarea}
+    
+    Get back to them via ${email}`,
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
