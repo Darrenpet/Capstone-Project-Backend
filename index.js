@@ -25,6 +25,8 @@ app.get("/", (req, res) => {
     msg: "Welcome to the API. Check the routes object ",
     routes: {
       contact: `${_rootUrl}contact`,
+      product: `${_rootUrl}product`,
+      user: `${_rootUrl}user`,
     },
   });
 });
