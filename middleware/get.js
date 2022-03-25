@@ -1,5 +1,4 @@
 const User = require("../models/Users");
-// const Admin = require("../models/Admins");
 const Product = require("../models/Products");
 
 async function getUser(req, res, next) {

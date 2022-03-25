@@ -3,7 +3,7 @@ require("dotenv").config;
 const express = require("express");
 const Product = require("../models/Products");
 const { getProduct } = require("../middleware/get");
-const authenticateToken = require("../middleware/auth");
+const { authenticateToken } = require("../middleware/auth");
 
 const app = express.Router();
 

@@ -5,8 +5,11 @@ const User = require("../models/Users");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { getUser, getProduct } = require("../middleware/get");
-const authenticateToken = require("../middleware/auth");
-// const authController = require("../controller/authController");
+const {
+  authenticateToken,
+  // authTokenAndAdmin,
+  // authTokenAndAuthorization,
+} = require("../middleware/auth");
 
 const app = express.Router();
 
@@ -21,11 +24,17 @@ app.get("/", async (req, res) => {
 });
 
 // GET one user
-app.get("/:id", getUser, (req, res) => {
-  res.send(res.user);
+app.get("/:id", getUser, async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    const { ...others } = user._doc;
+    res.status(200).json(others);
+  } catch (error) {
+    res.status(500).json(err);
+  }
 });
 
-// LOGIN user with email + password
+// LOGIN user
 app.patch("/", async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
@@ -47,8 +56,6 @@ app.patch("/", async (req, res) => {
       .json({ message: "Email and password combination do not match" });
   }
 });
-
-// app.get("/logout", authController.logout_get);
 
 // REGISTER a user
 app.post("/", async (req, res) => {

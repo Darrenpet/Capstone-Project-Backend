@@ -11,8 +11,32 @@ function authenticateToken(req, res, next) {
   jwt.verify(token, process.env.MONGO_PASS, (err, user) => {
     if (err) res.status(403).send({ message: err.message });
     req.user = user;
-    return next();
+    next();
   });
 }
 
-module.exports = authenticateToken;
+// const authTokenAndAuthorization = (req, res, next) => {
+//   authenticateToken(req, res, () => {
+//     if (req.user.id === req.params.id || req.params.id || req.user.isAdmin) {
+//       next();
+//     } else {
+//       res.status(403).json("You are not Authorized!!");
+//     }
+//   });
+// };
+
+// const authTokenAndAdmin = (req, res, next) => {
+//   authenticateToken(req, res, () => {
+//     if (req.user.isAdmin) {
+//       next();
+//     } else {
+//       res.status(403).json("You are not Authorized");
+//     }
+//   });
+// };
+
+module.exports = {
+  authenticateToken,
+  // authTokenAndAuthorization,
+  // authTokenAndAdmin,
+};
