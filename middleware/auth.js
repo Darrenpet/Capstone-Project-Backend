@@ -15,28 +15,28 @@ function authenticateToken(req, res, next) {
   });
 }
 
-// const authTokenAndAuthorization = (req, res, next) => {
-//   authenticateToken(req, res, () => {
-//     if (req.user.id === req.params.id || req.params.id || req.user.isAdmin) {
-//       next();
-//     } else {
-//       res.status(403).json("You are not Authorized!!");
-//     }
-//   });
-// };
+const authTokenAndAuthorization = (req, res, next) => {
+  authenticateToken(req, res, () => {
+    if (req.user.id === req.params.id || req.params.id || req.user.isAdmin) {
+      next();
+    } else {
+      res.status(403).json("You are not Authorized!!");
+    }
+  });
+};
 
-// const authTokenAndAdmin = (req, res, next) => {
-//   authenticateToken(req, res, () => {
-//     if (req.user.isAdmin) {
-//       next();
-//     } else {
-//       res.status(403).json("You are not Authorized");
-//     }
-//   });
-// };
+const authTokenAndAdmin = (req, res, next) => {
+  authenticateToken(req, res, () => {
+    if (req.user.isAdmin) {
+      next();
+    } else {
+      res.status(403).json("You are not Authorized");
+    }
+  });
+};
 
 module.exports = {
   authenticateToken,
-  // authTokenAndAuthorization,
-  // authTokenAndAdmin,
+  authTokenAndAuthorization,
+  authTokenAndAdmin,
 };
