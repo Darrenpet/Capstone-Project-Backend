@@ -3,7 +3,7 @@ require("dotenv").config;
 const express = require("express");
 const Product = require("../models/Products");
 const { getProduct } = require("../middleware/get");
-const { authenticateToken } = require("../middleware/auth");
+const { authenticateToken, authTokenAndAdmin } = require("../middleware/auth");
 
 const app = express.Router();
 
@@ -23,7 +23,7 @@ app.get("/:id", getProduct, (req, res) => {
 });
 
 // CREATE a product
-app.post("/", authenticateToken, async (req, res) => {
+app.post("/", authTokenAndAdmin, async (req, res) => {
   const { title, category, description, img_front, img_back, price } = req.body;
 
   let product = new Product({
@@ -45,7 +45,7 @@ app.post("/", authenticateToken, async (req, res) => {
 });
 
 // UPDATE a product
-app.put("/:id", [authenticateToken, getProduct], async (req, res) => {
+app.put("/:id", [authTokenAndAdmin, getProduct], async (req, res) => {
   if (req.user._id !== res.product.created_by)
     res.status(400).json({
       message: "You do not have the permission to update this product",
@@ -67,7 +67,7 @@ app.put("/:id", [authenticateToken, getProduct], async (req, res) => {
 });
 
 // DELETE a product
-app.delete("/:id", [authenticateToken, getProduct], async (req, res) => {
+app.delete("/:id", [authTokenAndAdmin, getProduct], async (req, res) => {
   if (req.user._id !== res.product.created_by)
     res.status(400).json({
       message: "You do not have the permission to delete this product",
